@@ -1,12 +1,21 @@
 #!/usr/bin/env ruby
 require './initializer.rb'
 
-first_page = "http://class.ruten.com.tw/user/index00.php?s=club5271"
+first_page = "http://class.ruten.com.tw/user/index00.php?s=club5271&p=2"
 
-page = Crawler.new first_page
-page.fetch
+client = Crawler.new first_page
+client.fetch
 
-total = page.total_page
-item_data = page.items
-puts item_data.inspect
-Item.batch_import(item_data)
+total_page = client.total_page
+
+# Import first page
+Item.batch_import(client.items)
+
+#(1..total_page.to_i-1).each do |page|
+  #url = "#{first_page}&p=#{page}"
+  #puts "Fetching page #{url}"
+  #client = Crawler.new url
+  #client.fetch
+
+  #Item.batch_import(client.items)
+#end
