@@ -2,6 +2,7 @@ require 'active_record'
 require 'sqlite3'
 require 'logger'
 require './item.rb'
+require './crawler.rb'
 
 puts "Initializing..."
 
