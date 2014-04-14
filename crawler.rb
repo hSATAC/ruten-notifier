@@ -1,7 +1,7 @@
 require 'open-uri'
 require './initializer.rb'
 
-ITEM_REGEX = /\<a pchome=.+?href="(\S+?)">(.*)<\/a>\n.*\n.*\n.*\n.*\n.*\n.*\n.*\n.*目前出價：\n([0-9,]+)\s+元/
+ITEM_REGEX = /\<a (?:pchome|ruten)=.+?href="(\S+?)">(.+?)<\/a>.+?目前出價：([0-9,]+)\s+元/
 
 class Crawler
   attr_reader :url, :html
@@ -14,7 +14,7 @@ class Crawler
       "User-Agent" => 'Mozilla/5.0 (Windows NT 5.1; rv:24.0) Gecko/20100101 Firefox/24.0',
       "Referer" => @url,
       "Cookie" => '_ts_id=ruten-crawler'
-    }).read.force_encoding('Big5').encode('UTF-8', :invalid => :replace, :replace => '')
+    }).read.force_encoding('Big5').encode('UTF-8', :invalid => :replace, :replace => '').delete("\n")
   end
 
   def total_page
@@ -26,6 +26,13 @@ class Crawler
   end
 
   def items
-    @html.scan(ITEM_REGEX).map { |array| array << array[0][/\?(\d+)$/,1] }
+    @html.scan(ITEM_REGEX).map do |array|
+      {
+         :ruten_id => array[0][/\?(\d+)$/,1],
+         :name     => array[1],
+         :url      => array[0],
+         :price    => array[2].delete(",")
+      }
+    end
   end
 end

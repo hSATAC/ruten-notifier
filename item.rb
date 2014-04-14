@@ -1,9 +1,9 @@
 class Item < ActiveRecord::Base
   def self.import(data)
-    item = Item.where(:ruten_id => data[3]).first_or_initialize
-    item.name = data[1]
-    item.price = data[2]
-    item.url = data[0]
+    item = Item.where(:ruten_id => data[:ruten_id]).first_or_initialize
+    item.name = data[:name]
+    item.price = data[:price]
+    item.url = data[:url]
     item.save
     puts "Item #{item.name} #{item.url} imported."
   end
