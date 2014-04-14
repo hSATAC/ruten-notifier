@@ -1,0 +1,7 @@
+---
+gmail:
+  account: "example@gmail.com"
+  password: "PASSWORD"
+recipients:
+  - "john@gmail.com"
+  - "doe@gmail.com"

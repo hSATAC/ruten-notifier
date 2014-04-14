@@ -2,3 +2,5 @@ db/*
 !db/.gitkeep
 log/*
 !log/.gitkeep
+email.yml
+config/schedule.rb
