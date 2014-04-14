@@ -1,5 +1,11 @@
 require './initializer.rb'
+require 'pry'
 
+desc "Run console"
+task :c do
+  ARGV.clear
+  Pry::CLI.parse_options
+end
 
 namespace :db do
   desc "Run DB migration."
