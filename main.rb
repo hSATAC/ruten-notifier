@@ -32,14 +32,14 @@ output = ""
 if grouped_items[Item::STATUS_REFILL]
   output << "========== 有補貨到了喔！ ==========\n"
   grouped_items[Item::STATUS_REFILL].each do |item|
-    output << "#{item[:url]} #{item[:name]}\n"
+    output << "#{item[:url]} #{item[:name]} #{item[:price]}\n"
   end
 end
 
 if grouped_items[Item::STATUS_NEW]
   output << "========== 有新貨上架了喔！ ===========\n"
   grouped_items[Item::STATUS_NEW].each do |item|
-    output << "#{item[:url]} #{item[:name]}\n"
+    output << "#{item[:url]} #{item[:name]} #{item[:price]}\n"
   end
 end
 
